@@ -9,6 +9,7 @@ import local.julia.airports.entities.Airport;
 import local.julia.airports.service.AirportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -23,13 +24,13 @@ public class AirportController {
     private AirportService airportService;
     
     /**
-     * Endpoint /airports/airport
-     * Retorna TODOS os aeroportos da base de dados.
+     * Endpoint /airports/city{cityName}
+     * @param cityName
      * @return
      */
-    @GetMapping("/airport")
-    public List<Airport> findAll() {
-        List<Airport> result = airportService.findAll();
+    @GetMapping("/city/{cityName}")
+    public List<Airport> findByCityIgnoreCase(@PathVariable String cityName) {
+        List<Airport> result = airportService.findByCity(cityName);
         return result;
     }
 }
